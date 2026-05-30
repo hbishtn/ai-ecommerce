@@ -4,64 +4,59 @@
 <head>
 
     <title>Cart</title>
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #f3f6fb; color: #1f2937; }
+        .product-card { border: 0; border-radius: 1rem; box-shadow: 0 18px 50px rgba(15, 23, 42, .06); }
+        .cart-header { margin-top: 3rem; margin-bottom: 1.5rem; }
+        .cart-summary { border-top: 1px solid #e5e7eb; padding-top: 1.5rem; }
+        .btn-dark, .btn-success { min-width: 110px; }
+    </style>
 
 </head>
 
 <body>
 
-<div class="container mt-5">
-
-    <h1>Your Cart</h1>
-
-    <hr>
-
-    {% for item in cart_items %}
-
-    <div class="card mb-3">
-
-        <div class="card-body">
-
-            <h3>{{ item.product.name }}</h3>
-
-            <p>Price: ₹{{ item.product.price }}</p>
-
-            <div class="d-flex gap-2 align-items-center">
-
-                <a href="{% url 'decrease_quantity' item.product.id %}" class="btn btn-danger">
-                    -
-                </a>
-
-                <span>{{ item.quantity }}</span>
-
-                <a href="{% url 'increase_quantity' item.product.id %}" class="btn btn-success">
-                    +
-                </a>
-                <a href="{% url 'remove_from_cart' item.product.id %}" class="btn btn-dark mt-3">
-
-                    Remove
-
-                </a>
-            </div>
-
-            <p>Subtotal: ₹{{ item.subtotal }}</p>
-
-        </div>
-
+<div class="container">
+    <div class="cart-header">
+        <h1 class="mb-3">Your Cart</h1>
+        <p class="text-muted">Review items, adjust quantities, and proceed to checkout.</p>
     </div>
 
+    {% for item in cart_items %}
+    <div class="card product-card mb-3">
+        <div class="card-body">
+            <div class="row align-items-center gy-3">
+                <div class="col-md-8">
+                    <h3 class="mb-1">{{ item.product.name }}</h3>
+                    <p class="mb-1 text-secondary">Price: ₹{{ item.product.price }}</p>
+                    <p class="mb-0">Subtotal: ₹{{ item.subtotal }}</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <div class="d-inline-flex align-items-center gap-2 mb-2">
+                        <a href="{% url 'decrease_quantity' item.product.id %}" class="btn btn-danger btn-sm">-</a>
+                        <span class="px-3 py-2 border rounded">{{ item.quantity }}</span>
+                        <a href="{% url 'increase_quantity' item.product.id %}" class="btn btn-success btn-sm">+</a>
+                    </div>
+                    <div>
+                        <a href="{% url 'remove_from_cart' item.product.id %}" class="btn btn-dark btn-sm">
+                            Remove
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {% endfor %}
 
-    <hr>
-
-    <h2>Total: ₹{{ total }}</h2>
-    <a href="{% url 'checkout' %}" class="btn btn-success">
-
-        Checkout
-
-    </a>
-
+    <div class="cart-summary text-end">
+        <h2 class="mb-3">Total: ₹{{ total }}</h2>
+        <a href="{% url 'checkout' %}" class="btn btn-success btn-lg">
+            Checkout
+        </a>
+    </div>
 </div>
 
 </body>
