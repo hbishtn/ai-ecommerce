@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'ai_assistant',
     'cloudinary',
     'cloudinary_storage',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
