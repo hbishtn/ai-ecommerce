@@ -6,5 +6,5 @@ urlpatterns = [
     path('product/<int:id>/', views.product_detail, name='product_detail'),
     
     #api
-    path('api/products/', product_list, name='api_products'),
+    path('api/products/', product_list, name='api_products'),       
 ]
