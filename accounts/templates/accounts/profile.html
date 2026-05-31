@@ -1,0 +1,17 @@
+<div style="max-width:500px;margin:50px auto;padding:30px;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,0.1);">
+
+    <h2>👤 My Profile</h2>
+
+    <hr>
+
+    <p><strong>Username:</strong> {{ request.user.username }}</p>
+
+    <p><strong>Email:</strong> {{ request.user.email }}</p>
+
+    <br>
+
+    <a href="{% url 'logout' %}" class="btn btn-danger">
+        🚪 Logout
+    </a>
+
+</div>
