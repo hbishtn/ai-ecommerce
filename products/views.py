@@ -38,8 +38,15 @@ def product_detail(request, id):
     product = Product.objects.get(id=id)
 
     reviews = Review.objects.filter(product=product)
+    user_reviewed = False
 
-    if request.method == "POST":
+    if request.user.is_authenticated:
+        user_reviewed = Review.objects.filter(
+            product=product,
+            user=request.user
+        ).exists()
+
+    if request.method == "POST" and request.user.is_authenticated:
 
         already_reviewed = Review.objects.filter(
 
@@ -95,13 +102,8 @@ def product_detail(request, id):
 
             'average_rating': average_rating,
 
-            'user_reviewed': Review.objects.filter(
-
-                product=product,
-
-                user=request.user
-
-            ).exists()
+            'user_reviewed': user_reviewed
+            
         
         }
 
